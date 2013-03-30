@@ -24,6 +24,8 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+    @profile_image = ProfileImage.new
   end
 
   def destroy
