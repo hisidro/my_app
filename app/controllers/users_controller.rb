@@ -6,6 +6,14 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+
+  def email_file
+    @user = User.find(params[:id])
+    attachpath= ["#{Rails.root}/public", params[:path]].join
+    UserMailer.email_attachment(@user, attachpath).deliver
+    flash[:success] = "Sent email with file attachment, #{File.basename(attachpath)}!"
+    redirect_to @user
+  end
   
   def new
   	@user = User.new

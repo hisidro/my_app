@@ -25,12 +25,21 @@
   <div class="span6 offset3">
     <% if @user.profile_images.any? %>
       <% @user.profile_images.each do |profile_image| %>
-        <p><b><i><%= profile_image.name %></i></b></p>
-          <%= image_tag preview_or_default_image(profile_image) if profile_image.image? %>
+        <p><b><i><%= profile_image.name %></i></b>
+          <!--For displaying url, profile_image.image -->
+          <% if profile_image.image.file.extension == 'pdf' || profile_image.image.file.extension == 'doc' || profile_image.image.file.extension == 'docx'%>
+            <iframe src=<%= ["http://docs.google.com/gview?url=", Rails.root.join(profile_image.image_url), "&embedded=true"].join %> style="width:600px; height:500px;" frameborder="0"></iframe>
+          <% else %>
+            <%= image_tag preview_or_default_image(profile_image) if profile_image.image? %>
+          <% end %>
+          <%= link_to "Download file", profile_image.image.url, confirm: "Are you sure?" %>
+          <!--<%= link_to "Download file", email_file_user_path(@user, path: profile_image.image.url), confirm: "Are you sure?" %>-->
+          <!--Instead of download email this file (or its download link) to User-->
           <% if current_user?(profile_image.user) %>
-            <%= link_to "delete", profile_image, method: :delete,
+            | <%= link_to "delete", profile_image, method: :delete,
                                      confirm: "Are You sure you want to delete this image?" %>
           <% end %>
+        </p>
         <br>
       <% end %>
     <% end %>

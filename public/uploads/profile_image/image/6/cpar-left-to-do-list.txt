@@ -1,0 +1,54 @@
+CPAR To do Stuff:
+
+XXX Email mailer - Use Mailcatcher for SMTP instead, implement Password Reset email and Verification email
+XXX 	- also, after email is verified, Admin approval of account - add booleans (verified = true, enabled = true)
+	Issues page - automatic setting of Issue Status 
+XXX 	- QMR only sets a New Issue to Verified/Approved, New to Rejected, Rejected back to New or Closed
+		- Also, Closing an Issue (that went through proper steps) -> refer to Close Out Form
+XX		- Other Issue Statuses should auto-update; Like, after Dept Head assigns an Officer to Issue, auto update Verified to Investigating (Root 
+		Cause analysis) - Dept Head sets 2 to 3 (Investigating), Officer sets Issue status from 3 to 4 (Correcting) after adding Root Cause (or should be after adding Action Plan?)
+	Comments model - integrate with emailer, also to be using for making a Status Updates Feed for an Issue
+		(activities like "Assigned Off Icer to Issue # ___" should be auto posted as Dept Head comment since Dept Head assigned, etc)
+	Close Out form - maybe a separate model + view/controller for this, or it could be a nested resource under Issues
+		- should only be visible in all roled officers (except admin) 's dashboards, no public view (eg. Resolved Issues for Close Out)
+	+ Additional controls for:
+		Dept Head - set Estimated close out date (deadline) - Dynamic, suggested by Ms Sonia
+			- Promote Employee in his/her department to Responsible Officer (Admin approval)
+		Responsible Officer - 
+		Auditor - Date should be set when Action Plan was Reviewed and when Action Plan's Implementation was reviewed (in proper date fields)
+XXX 	For Issue - fields (info fields only) editable by QMR *AND* originator?) - INFO Fields for Originator subject to change (both New and Edit)
+	+ Fill in Issue Information in populate data - Description of NC (CPAR category), ISO NC clauses (from 9001:2008), etc
+XXX + Public Issue view - separate table, My Dept Issues from My Submitted Issues
+	+ Action Plan - since Index shouldn't be viewable alone, should only be able to view Action Plans for Issues you can see
+		- Only do this for Public View - Roles without AP controllers in their namespaces wouldn't be able to publicly access all that way
+											- QMR, Admin, Dept Head -- since only Auditor & Officer have AP controllers/commands
+	+ Issue / Cause model - File attachment part (jpg, doc, pdf, etc?)
+	+ Emailer - notify Officer when assigned to project
+			- Notify when near set deadline (7 days, 3, 2, 1 day)
+	+ Arrange Issue display by nearest Close Out Date (deadline), or other factors
+	
+From meeting with Ms Sonia:
+	
+	Departments priority levels - each department responsible assigning their own responsible officer to conduct RCA, formulate Action Plan
+		- Doable since there's a separate Department model
+XXX	Issues View Page - separate public view (CPAR general info + updates only) from roled officer view (Causes investigated, Action Plans, etc)
+** 		Implemented but still subject to Editing (What stays on show page like controls, etc; What shows in Details page) 
+	Issue Search functionality - Keyword search bar for Issues (or possibly also filtering by other Issue fields, if there's time)
+	Issue Importance Level - quick fix, make it assigned properly by QMR (Critical, Major, Minor) before or right after approving an Issue
+	
+Possible to satisfy Sir Caro:
+	
+	CPAR Analytics - Statistics generated from info in database 
+		(how many CPARs submitted per month, closed out per month, rejected, etc; All reflected in a graph representation)
+	** Even just implementing SMTP is CS 140 stuff, stuff with website Security I can say I learned from CS197 Cryptography, CS165 for databases
+	
+Paper Writing:
+	Implementation part, and starting on Conclusion
+	
+====================================================================
+Idea - Department Status updates table in Issues
+	- manual build @statuses in controller - department name, dept head name (?), assigned Officer name, Status with that officer
+	- Still keep Issue status changed when one Dept Head assigns an officer > condition - Issue status change only if status is 2 (Verified)
+			- same for Officer - Issue status change when added Root Cause only if status is 3 (Investigating)
+			- Since Issue status really is at that level, at least for one department so it's okay
+	

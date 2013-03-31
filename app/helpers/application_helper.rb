@@ -14,13 +14,13 @@ module ApplicationHelper
   		when 'jpg', 'jpeg', 'png', 'gif' # , 'png', ...
     		media.image_url
   		#when 'doc', 'docx'
-    	#	'#{RAILS_ROOT}/public/default_image.png'
+    	#	Rails.root.join('app/assets/images/default.jpg')
   		#when 'xls', 'xlsx'
-    	#	'#{RAILS_ROOT}/public/default_image.png'
+    	#	Rails.root.join('app/assets/images/default.jpg')
   		#when 'pdf'
-    	#	'#{RAILS_ROOT}/public/default_image.png'
+    	#	Rails.root.join('app/assets/images/default.jpg')
     	else
-    		'#{RAILS_ROOT}/app/assets/images/default.jpg'
+    		Rails.root.join('app/assets/images/default.jpg')
   		end
 	end
 end
