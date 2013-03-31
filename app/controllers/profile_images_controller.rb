@@ -15,6 +15,7 @@ class ProfileImagesController < ApplicationController
 
   def destroy
     @profile_image.destroy
+    flash[:success] = "Image/File destroyed!"
     redirect_to user_path(current_user)
   end
 
